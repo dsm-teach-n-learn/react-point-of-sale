@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Welcome</title>
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/app.css">
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="container"></div>
+
+    <script type="text/babel">
+      const pizza = {id: 1, cost: 5, name: 'Pizza', image_url: '/img/pizza.png'};
+      const pancakes = {id: 2, cost: 6, name: 'Pancakes', image_url: '/img/pancakes.png'};
+      const fries = {id: 3, cost: 7, name: 'Fries', image_url: '/img/fries.png'};
+      const hotdog = {id: 4, cost: 8, name: 'Hotdog', image_url: '/img/hotdog.png'}
+      const foods = [pizza, pancakes, fries, hotdog];
+
+      class Tables extends React.Component {
+        constructor() {
+          super(...arguments);
+        }
+        getTotal() {
+          return 0;
+        }
+        render() {
+          const links = foods.map(function(food) {
+            return <li key={food.id}><a href=""><img src={food.image_url} /><p>{food.name}</p></a></li>
+          }.bind(this));
+          return (
+            <div className="row">
+              <div className="twelve rows">
+                <h1>Ordr</h1>
+                <hr />
+                <div className="row">
+                  <div id="tables" className="four columns">
+                    <h2>Tables</h2>
+                    <ul>
+                      <a href="#" className="panel six columns">1</a>
+                      <a href="#" className="panel six columns">2</a>
+                      <a href="#" className="panel six columns">3</a>
+                      <a href="#" className="panel six columns">4</a>
+                      <a href="#" className="panel six columns">5</a>
+                      <a href="#" className="panel six columns">6</a>
+                    </ul>
+                  </div>
+                  <div id="order" className="eight columns">
+                    <div className="row">
+                      <div className="three columns">
+                        <ul id="menu">
+                          {links}
+                        </ul>
+                      </div>
+                      <div className="nine columns">
+                        <h2>Table <span className="identifier">1</span></h2>
+                        <ul id="customer-tab">
+                          <li><h3>NAME <span className="right">COST</span></h3></li>
+                          <li id="total"><h3>Total <span className="right">${this.getTotal()}</span></h3></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        }
+      }
+
+      ReactDOM.render(
+        <Tables />,
+        document.getElementById('container')
+      );
+    </script>
+  </body>
+</html>
